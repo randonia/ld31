@@ -11,7 +11,7 @@ Design Notes
     * Guards
         - Gun
         - Melee?
-    * Paths for guards
+#    * Paths for guards
 
 + Obstacles
     * Crates - blocks vision, movement

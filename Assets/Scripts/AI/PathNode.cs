@@ -3,6 +3,7 @@ using System.Collections;
 
 public class PathNode : MonoBehaviour {
     private const float kGizmoSize = 0.1f;
+    public float nodeDelay;
 
     public GameObject prevNodeGO;
     public GameObject nextNodeGO;
@@ -44,6 +45,7 @@ public class PathNode : MonoBehaviour {
     {
         Gizmos.color = Color.white;
         Gizmos.DrawWireCube(transform.position, Vector3.one * kGizmoSize);
+        TextGizmo.Instance.DrawText(transform.position, gameObject.name);
         if (prevNodeGO)
         {
             Gizmos.color = Color.yellow;

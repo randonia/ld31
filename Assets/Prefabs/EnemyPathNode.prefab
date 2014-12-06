@@ -68,6 +68,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5bbc82db526163d45acb1661a9ba51d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  nodeDelay: 1
   prevNodeGO: {fileID: 0}
   nextNodeGO: {fileID: 0}
 --- !u!1001 &100100000

@@ -40,16 +40,21 @@ public class EnemyController : AbstractMovingGameObject {
         Debug.Log("Triggered with: " + other.gameObject.tag);
         if (other.gameObject.tag == "pathnode")
         {
-            // Go to the next node if it exists
-            mCurrNode = mCurrNode.NextNode;
-            if (mCurrNode)
-            {
-                mCurrNodeGO = mCurrNode.gameObject;
-            }
+            StartCoroutine(WaitForSeconds(mCurrNode.nodeDelay));
         }
         if (other.gameObject.tag == "Player")
         {
             // Do some player perception here
         }
+    }
+
+    IEnumerator WaitForSeconds(float sec)
+    {
+        PathNode next = mCurrNode.NextNode;
+        mCurrNode = null;
+        mCurrNodeGO = null;
+        yield return new WaitForSeconds(sec);
+        mCurrNode = next;
+        mCurrNodeGO = next.gameObject;
     }
 }
