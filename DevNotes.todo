@@ -19,7 +19,8 @@ Design Notes
     * Water - blocks movement
 
 + Targets
-    * Wounded Allies
+#    * Wounded Allies
+        - Something to reward player for healing? Short of objectives
     * Wounded Enemies
         - Kill or heal?
         - Heal grants you something (removes other guard?)
