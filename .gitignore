@@ -17,6 +17,7 @@
 sysinfo.txt
 
 # Custom ignores
+*.db
 *.psd
 *.dll
 # Ignore NGUI for copyrights
