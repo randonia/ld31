@@ -2,17 +2,22 @@
 using System.Collections;
 
 public class EnemyController : AbstractMovingGameObject {
+    public GameObject PREFAB_BULLET;
 
     public GameObject StartPathingNode;
     private GameObject mCurrNodeGO;
     private PathNode mCurrNode;
+
+    private const float kFireRate = 0.5f;
+    private float mLastFiredTime = 0.0f;
 
 	// Use this for initialization
 	void Start () {
         Initialize("Enemy");
 
         foreach(TriggerDetector td in GetComponentsInChildren<TriggerDetector>()){
-            td.TriggerResponse = OnTriggerEnter;
+            td.TriggerEnterDelegate = OnTriggerEnter;
+            td.TriggerStayDelegate = OnTriggerStay;
         }
         mCurrNodeGO = StartPathingNode;
         mCurrNode = mCurrNodeGO.GetComponent<PathNode>();
@@ -44,8 +49,26 @@ public class EnemyController : AbstractMovingGameObject {
         }
         if (other.gameObject.tag == "Player")
         {
-            // Do some player perception here
+            // Shoot at the player
         }
+    }
+
+    void OnTriggerStay(Collider other)
+    {
+        if (other.gameObject.tag == "Player")
+        {
+            if (mLastFiredTime + kFireRate < Time.time)
+            {
+                ShootAt(other.gameObject);
+            }
+        }
+    }
+
+    private void ShootAt(GameObject gameObject)
+    {
+        GameObject bullet = (GameObject)GameObject.Instantiate(PREFAB_BULLET,
+            transform.position, Quaternion.identity);
+        bullet.GetComponent<BulletController>().Direction = (gameObject.transform.position - transform.position);
     }
 
     IEnumerator WaitForSeconds(float sec)

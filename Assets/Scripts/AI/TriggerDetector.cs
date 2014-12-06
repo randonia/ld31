@@ -4,7 +4,9 @@ using System.Collections;
 public class TriggerDetector : MonoBehaviour {
     
     public delegate void triggerResponse(Collider other);
-    public triggerResponse TriggerResponse;
+    public triggerResponse TriggerEnterDelegate;
+    public triggerResponse TriggerStayDelegate;
+    public triggerResponse TriggerExitDelegate;
 	// Use this for initialization
 	void Start () {
 	
@@ -18,6 +20,25 @@ public class TriggerDetector : MonoBehaviour {
     void OnTriggerEnter(Collider other)
     {
         // Propegate the change upwards. Because Unity
-        TriggerResponse(other);
+        if (TriggerEnterDelegate != null)
+        {
+            TriggerEnterDelegate(other);
+        }
+    }
+
+    void OnTriggerStay(Collider other)
+    {
+        if (TriggerStayDelegate != null)
+        {
+            TriggerStayDelegate(other);
+        }
+    }
+
+    void OnTriggerExit(Collider other)
+    {
+        if (TriggerExitDelegate != null)
+        {
+            TriggerExitDelegate(other);
+        }
     }
 }

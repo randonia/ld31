@@ -2,6 +2,7 @@
 using System.Collections;
 
 public class AbstractMovingGameObject : MonoBehaviour {
+
     protected const float ACCELERATION = 0.15f;
     protected const float WALK_SPEED = 0.75f;
     protected const float RUN_SPEED = 1.5f;

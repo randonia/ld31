@@ -9,6 +9,10 @@ public class PlayerController : AbstractMovingGameObject {
     void Start()
     {
         Initialize("Player");
+        foreach (TriggerDetector td in GetComponentsInChildren<TriggerDetector>())
+        {
+            td.TriggerEnterDelegate = OnTriggerEnter;
+        }
     }
 
     // Update is called once per frame
@@ -56,8 +60,16 @@ public class PlayerController : AbstractMovingGameObject {
         mController.Move(movementVector.normalized * Time.deltaTime * mSpeed * ((mSprinting)?2:1));
     }
 
-private bool MovementKeyDown()
-{
- 	return Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.S);
-}
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.tag == "projectile")
+        {
+            // Do death stuff
+        }
+    }
+
+    private bool MovementKeyDown()
+    {
+ 	    return Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.S);
+    }
 }
