@@ -24,17 +24,21 @@ public class PathNode : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         mNodeName = gameObject.name;
+        if (nextNodeGO)
+        {
+            mNextNode = nextNodeGO.GetComponent<PathNode>();
+        }
+        if (prevNodeGO)
+        {
+            mPrevNode = prevNodeGO.GetComponent<PathNode>();
+        }
+        transform.position.Set(transform.position.x, transform.position.y, 0.0f);
 	}
 	
 	// Update is called once per frame
 	void Update () {
 	
 	}
-
-    void OnTriggerEnter(Collider other)
-    {
-        Debug.Log("PEW");
-    }
 
     void OnDrawGizmos()
     {

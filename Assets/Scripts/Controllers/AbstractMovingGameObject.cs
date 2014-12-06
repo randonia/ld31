@@ -13,5 +13,6 @@ public class AbstractMovingGameObject : MonoBehaviour {
         gameObject.name = name;
         Debug.Log("Started " + name);
         mController = GetComponent<CharacterController>();
+        transform.position.Set(transform.position.x, transform.position.y, 0.0f);
     }
 }

@@ -6,13 +6,14 @@ public class EnemyController : AbstractMovingGameObject {
     public GameObject StartPathingNode;
     private GameObject mCurrNodeGO;
     private PathNode mCurrNode;
-    private TriggerDetector mTriggerDetector;
 
 	// Use this for initialization
 	void Start () {
         Initialize("Enemy");
-        mTriggerDetector = GetComponentInChildren<TriggerDetector>();
-        mTriggerDetector.TriggerResponse = OnTriggerEnter;
+
+        foreach(TriggerDetector td in GetComponentsInChildren<TriggerDetector>()){
+            td.TriggerResponse = OnTriggerEnter;
+        }
         mCurrNodeGO = StartPathingNode;
         mCurrNode = mCurrNodeGO.GetComponent<PathNode>();
 	}
@@ -36,11 +37,19 @@ public class EnemyController : AbstractMovingGameObject {
 
     void OnTriggerEnter(Collider other)
     {
-        Debug.Log("COLLISION WOO");
+        Debug.Log("Triggered with: " + other.gameObject.tag);
         if (other.gameObject.tag == "pathnode")
         {
+            // Go to the next node if it exists
             mCurrNode = mCurrNode.NextNode;
-            mCurrNodeGO = mCurrNode.gameObject;
+            if (mCurrNode)
+            {
+                mCurrNodeGO = mCurrNode.gameObject;
+            }
+        }
+        if (other.gameObject.tag == "Player")
+        {
+            // Do some player perception here
         }
     }
 }
