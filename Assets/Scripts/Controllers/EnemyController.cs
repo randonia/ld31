@@ -67,6 +67,7 @@ public class EnemyController : AbstractMovingGameObject {
     {
         GameObject bullet = (GameObject)GameObject.Instantiate(PREFAB_BULLET,
             transform.position, Quaternion.identity);
+        bullet.name = "zbullet";
         bullet.GetComponent<BulletController>().Direction = (gameObject.transform.position - transform.position);
     }
 
