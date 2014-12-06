@@ -2,9 +2,9 @@ Design Notes
 ========
 
 + Movement
-    * Arrow keys for Desktop
+#    * WASD + Shift keys for Desktop
     * Joystick controls for mobile
-    * Walk default, sprint with shift or >50% joystick
+#    * Walk default, sprint with shift or >50% joystick
     * Run alerts guards
 
 + Enemies

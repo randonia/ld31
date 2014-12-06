@@ -1,22 +1,14 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class PlayerController : MonoBehaviour {
+public class PlayerController : AbstractMovingGameObject {
 
-    private const float ACCELERATION = 0.15f;
-    private const float WALK_SPEED = 0.75f;
-    private const float RUN_SPEED = 1.5f;
-
-    private CharacterController mController;
-
-    private float mSpeed = 0.0f;
     private bool mSprinting = false;
 
     // Use this for initialization
     void Start()
     {
-        mController = GetComponent<CharacterController>();
-        Debug.Log("Started Player!");
+        Initialize("Player");
     }
 
     // Update is called once per frame
@@ -29,7 +21,8 @@ public class PlayerController : MonoBehaviour {
     {
         mSprinting = Input.GetKey(KeyCode.LeftShift);
 
-        Vector3 movementVector = new Vector3();
+        Vector3 movementVector = Vector3.zero;
+
         if(GameController.mControlMode.Equals(GameController.ControlMode.Desktop))
         {
             if(MovementKeyDown()){
