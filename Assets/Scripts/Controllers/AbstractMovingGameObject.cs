@@ -9,6 +9,7 @@ public class AbstractMovingGameObject : MonoBehaviour {
 
     protected CharacterController mController;
     protected float mSpeed = 0.0f;
+    protected Vector3 mLookDirection = Vector3.zero;
 
 	protected void Initialize(string name){
         gameObject.name = name;

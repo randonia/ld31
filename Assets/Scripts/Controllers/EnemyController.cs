@@ -7,6 +7,7 @@ public class EnemyController : AbstractMovingGameObject {
     public GameObject StartPathingNode;
     private GameObject mCurrNodeGO;
     private PathNode mCurrNode;
+    private SphereCollider mPerceptionCollider;
 
     private const float kFireRate = 0.5f;
     private float mLastFiredTime = 0.0f;
@@ -21,6 +22,7 @@ public class EnemyController : AbstractMovingGameObject {
         }
         mCurrNodeGO = StartPathingNode;
         mCurrNode = mCurrNodeGO.GetComponent<PathNode>();
+        mPerceptionCollider = transform.Find("EnemyPerception").GetComponent<SphereCollider>();
 	}
 	
 	// Update is called once per frame
@@ -37,7 +39,10 @@ public class EnemyController : AbstractMovingGameObject {
             movementVector = mCurrNodeGO.transform.position - transform.position;
         }
 
-        mController.Move(movementVector.normalized * Time.deltaTime * mSpeed);
+        Vector3 movementNormalized = movementVector.normalized;
+        mController.Move(movementNormalized * Time.deltaTime * mSpeed);
+        mLookDirection = (mLookDirection + movementNormalized).normalized;
+        Debug.DrawRay(transform.position, mLookDirection * mPerceptionCollider.radius, Color.cyan);
     }
 
     void OnTriggerEnter(Collider other)
@@ -56,11 +61,34 @@ public class EnemyController : AbstractMovingGameObject {
     {
         if (other.gameObject.tag == "Player")
         {
-            if (mLastFiredTime + kFireRate < Time.time)
+            if (CanSee(other.gameObject))
             {
-                ShootAt(other.gameObject);
+                if (mLastFiredTime + kFireRate < Time.time)
+                {
+                    ShootAt(other.gameObject);
+                }
             }
         }
+    }
+
+    private bool CanSee(GameObject other)
+    {
+        Ray ray = new Ray(transform.position, (other.transform.position - transform.position).normalized);
+        RaycastHit hitInfo;
+        if (Physics.SphereCast(ray, 0.1f, out hitInfo, distance: mPerceptionCollider.radius, layerMask: LayerMask.NameToLayer("Player")))
+        {
+            if (hitInfo.collider.gameObject.tag.Equals("Player"))
+            {
+                Debug.DrawLine(transform.position, hitInfo.collider.transform.position, Color.red, 1.0f);
+                return true;
+            }
+            else
+            {
+                Debug.DrawLine(transform.position, hitInfo.collider.transform.position, Color.white, 1.0f);
+            }
+        }
+        
+        return false;
     }
 
     private void ShootAt(GameObject gameObject)
@@ -79,5 +107,14 @@ public class EnemyController : AbstractMovingGameObject {
         yield return new WaitForSeconds(sec);
         mCurrNode = next;
         mCurrNodeGO = next.gameObject;
+    }
+
+    void OnDrawGizmos()
+    {
+        if (mPerceptionCollider)
+        {
+            Gizmos.color = Color.white;
+            Gizmos.DrawWireSphere(transform.position, mPerceptionCollider.radius);
+        }
     }
 }

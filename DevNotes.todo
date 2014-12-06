@@ -14,7 +14,8 @@ Design Notes
 #    * Paths for guards
 
 + Obstacles
-    * Crates - blocks vision, movement
+#    * Crates - blocks vision, movement
+#        - Hiding slightly works!
     * Walls - blocks vision, movement
     * Water - blocks movement
 

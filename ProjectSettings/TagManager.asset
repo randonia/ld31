@@ -44,3 +44,15 @@ TagManager:
     userID: 0
     uniqueID: 0
     locked: 0
+  - name: Scenery
+    userID: 1
+    uniqueID: 3955652715
+    locked: 0
+  - name: Game World
+    userID: 3
+    uniqueID: 2683026959
+    locked: 0
+  - name: Player
+    userID: 2
+    uniqueID: 3353993909
+    locked: 0
