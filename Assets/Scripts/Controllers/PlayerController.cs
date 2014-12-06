@@ -66,6 +66,11 @@ public class PlayerController : AbstractMovingGameObject {
         {
             // Do death stuff
         }
+        if (other.gameObject.tag == "target")
+        {
+            // Do target stuff
+            Debug.Log("Target!");
+        }
     }
 
     private bool MovementKeyDown()

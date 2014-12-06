@@ -42,7 +42,6 @@ public class EnemyController : AbstractMovingGameObject {
 
     void OnTriggerEnter(Collider other)
     {
-        Debug.Log("Triggered with: " + other.gameObject.tag);
         if (other.gameObject.tag == "pathnode")
         {
             StartCoroutine(WaitForSeconds(mCurrNode.nodeDelay));

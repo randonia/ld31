@@ -1,9 +1,9 @@
 fileFormatVersion: 2
-guid: 03de7847225d15a439b2ce023482daab
+guid: 44722acd087fec640ad59c8c77107fbb
 TextureImporter:
   fileIDToRecycleName:
-    21300000: bullet_0
-    21300002: bullet_1
+    21300000: fallen_ally_0
+    21300002: fallen_ally_1
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -45,23 +45,23 @@ TextureImporter:
   buildTargetSettings: []
   spriteSheet:
     sprites:
-    - name: bullet_0
+    - name: fallen_ally_0
       rect:
         serializedVersion: 2
-        x: 2
-        y: 2
-        width: 4
-        height: 4
+        x: 0
+        y: 0
+        width: 32
+        height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: bullet_1
+    - name: fallen_ally_1
       rect:
         serializedVersion: 2
-        x: 10
-        y: 2
-        width: 4
-        height: 4
+        x: 32
+        y: 0
+        width: 32
+        height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}

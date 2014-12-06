@@ -3,7 +3,7 @@ using System.Collections;
 
 public class BulletController : AbstractMovingGameObject {
 
-    private const float kLifespan = 10.0f;
+    private const float kLifespan = 3.0f;
     private float mBirthTime;
 
     private Vector3 mDirection;

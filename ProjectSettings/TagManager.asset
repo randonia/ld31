@@ -5,6 +5,7 @@ TagManager:
   tags:
   - pathnode
   - projectile
+  - target
   - 
   Builtin Layer 0: Default
   Builtin Layer 1: TransparentFX
@@ -17,8 +18,8 @@ TagManager:
   User Layer 8: Pathfinding
   User Layer 9: Perception
   User Layer 10: Projectiles
-  User Layer 11: 
-  User Layer 12: 
+  User Layer 11: PlayerCollider
+  User Layer 12: Target
   User Layer 13: 
   User Layer 14: 
   User Layer 15: 
