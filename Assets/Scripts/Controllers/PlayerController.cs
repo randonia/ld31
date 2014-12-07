@@ -14,11 +14,9 @@ public class PlayerController : AbstractMovingGameObject {
     private const float kJoystickRange = 100.0f;
 
     private Vector2 mTouchStartPos;
-    private Vector2 mTouchLastPos;
     private Vector2 mTouchCurrPos;
     private float mTouchMagnitude;
     private Vector3 mTouchStartWorldPos;
-    private Vector3 mTouchLastWorldPos;
     private Vector3 mTouchCurrWorldPos;
 
     #endregion
@@ -86,8 +84,6 @@ public class PlayerController : AbstractMovingGameObject {
                         GO_TouchStart.SetActive(true);
                         GO_TouchEnd.SetActive(true);
                         // Set up the vectors
-                        mTouchLastPos = Vector2.zero;
-                        mTouchLastWorldPos = Vector3.zero;
                         mTouchStartPos = touch.position;
                         mTouchStartWorldPos = mMainCamera.ScreenToWorldPoint(touch.position);
                         // Move the Game Objects
@@ -95,7 +91,6 @@ public class PlayerController : AbstractMovingGameObject {
                         break;
                     case TouchPhase.Moved:
                     case TouchPhase.Stationary:
-                        mTouchLastPos = mTouchCurrPos;
                         mTouchCurrPos = touch.position;
                         mTouchCurrWorldPos = mMainCamera.ScreenToWorldPoint(touch.position);
                         GO_TouchEnd.transform.position = mTouchCurrWorldPos;

@@ -20,11 +20,9 @@ public class PathNode : MonoBehaviour {
         get { return mNextNode; }
     }
 
-    private string mNodeName;
-
 	// Use this for initialization
 	void Start () {
-        mNodeName = gameObject.name;
+
         if (nextNodeGO)
         {
             mNextNode = nextNodeGO.GetComponent<PathNode>();

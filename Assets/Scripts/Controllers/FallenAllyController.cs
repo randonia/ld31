@@ -28,7 +28,7 @@ public class FallenAllyController : MonoBehaviour {
             if (mHealStartTime + kHealTime < Time.time)
             {
                 mParticleSystem.Emit(15);
-
+                GameController.instance.HealSoldier(gameObject);
             }
         }
 	}
