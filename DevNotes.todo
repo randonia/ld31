@@ -15,9 +15,8 @@ Design Notes
 
 + Obstacles
 #    * Crates - blocks vision, movement
-#        - Hiding slightly works!
     * Walls - blocks vision, movement
-    * Water - blocks movement
+#    * Water - blocks movement
 
 + Targets
 #    * Wounded Allies
