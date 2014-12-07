@@ -135,6 +135,9 @@ public class PlayerController : AbstractMovingGameObject {
         {
             // Do death stuff
             GameController.instance.PlayerKilled();
+            transform.FindChild("PlayerDead").GetComponent<SpriteRenderer>().enabled = true;
+            GetComponent<SpriteRenderer>().enabled = false;
+            GetComponent<UI2DSpriteAnimation>().enabled = false;
         }
         if (other.gameObject.tag == "target")
         {

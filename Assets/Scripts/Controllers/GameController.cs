@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 
 public class GameController : MonoBehaviour {
+    public const string PREFS_SCORE = "player_score";
     public enum ControlMode {
         Mobile,
         Desktop
@@ -31,11 +32,15 @@ public class GameController : MonoBehaviour {
     public bool PlayerDead { get { return State == GameState.Dead; } }
     private float mDeadFade = 0.0f;
     public float DeadFade { get { return mDeadFade; } }
+    private float mDeadButtonFade = 0.0f;
+    public float DeadButtonFade { get { return mDeadButtonFade; } }
     
 
     private int mScore;
     public int Score { get { return mScore; } }
     public string ScoreString { get { return mScore.ToString().PadLeft(8, '0'); } }
+    private int mHighScore;
+    public string HighScore { get { return mHighScore.ToString().PadLeft(5, '0'); } }
 
     private static GameController _instance;
     public static GameController instance { get { return _instance; } }
@@ -55,6 +60,9 @@ public class GameController : MonoBehaviour {
         mCurrLevelInt = 0;
         mCurrLevel = Levels[mCurrLevelInt].GetComponent<LevelController>();
         mCurrLevel.StartLevel();
+        State = GameState.Playing;
+
+        mHighScore = PlayerPrefs.GetInt(PREFS_SCORE, 0);
 
         mControlMode = ControlMode.Desktop;
         //mControlMode = ControlMode.Mobile;
@@ -76,7 +84,7 @@ public class GameController : MonoBehaviour {
 
     public void HealSoldier(GameObject wounded)
     {
-        if (GO_WoundedRemaining.IndexOf(wounded) != -1)
+        if (GO_WoundedRemaining.IndexOf(wounded) != -1 && State == GameState.Playing)
         {
             GO_WoundedRemaining.Remove(wounded);
             mScore++;
@@ -141,6 +149,11 @@ public class GameController : MonoBehaviour {
         NextLevel();
     }
 
+    public void RestartGame()
+    {
+        Application.LoadLevel(Application.loadedLevel);
+    }
+
     private void LevelTransition(LevelController lastLevel, LevelController mCurrLevel)
     {
         // Move them
@@ -175,14 +188,28 @@ public class GameController : MonoBehaviour {
     {
         if (State != GameState.Dead)
         {
+            float tweenTime = 2.0f;
             iTween.ValueTo(gameObject, iTween.Hash("name", "mDeadFade", "from", 0.0f, "to", 1.0f,
-                "onupdate", "SetDeathFade"));
+                "onupdate", "SetDeathFade", "time", tweenTime));
+            iTween.ValueTo(gameObject, iTween.Hash("name", "mDeadButtonFade", "from", 0.0f, "to", 1.0f,
+                "onupdate", "SetDeathButtonFade", "delay", tweenTime, "time", 0.75f));
         }
         State = GameState.Dead;
+        int old_score = PlayerPrefs.GetInt(PREFS_SCORE, 0);
+        if (old_score < mScore)
+        {
+            PlayerPrefs.SetInt(PREFS_SCORE, mScore);
+            PlayerPrefs.Save();
+        }
     }
 
     private void SetDeathFade(float val)
     {
         mDeadFade = val;
+    }
+
+    private void SetDeathButtonFade(float val)
+    {
+        mDeadButtonFade = val;
     }
 }
