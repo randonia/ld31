@@ -63,7 +63,8 @@ public class EnemyController : AbstractMovingGameObject {
         {
             if (CanSee(other.gameObject))
             {
-                if (mLastFiredTime + kFireRate < Time.time)
+                float angleBetween = Vector3.Angle((other.gameObject.transform.position - transform.position), mLookDirection);
+                if (angleBetween <= 120.0 && mLastFiredTime + kFireRate < Time.time)
                 {
                     ShootAt(other.gameObject);
                 }

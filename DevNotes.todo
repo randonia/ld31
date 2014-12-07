@@ -12,6 +12,7 @@ Design Notes
 #        - Gun
         - Melee?
 #    * Paths for guards
+#    * Guard vision cones - 120 degree field of view
 
 + Obstacles
 #    * Crates - blocks vision, movement
