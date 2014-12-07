@@ -13,7 +13,8 @@ public class GameController : MonoBehaviour {
     {
         Playing,
         Paused,
-        Dead
+        Dead,
+        Win
     }
 
     public List<GameObject> Levels;
@@ -32,8 +33,11 @@ public class GameController : MonoBehaviour {
     public bool PlayerDead { get { return State == GameState.Dead; } }
     private float mDeadFade = 0.0f;
     public float DeadFade { get { return mDeadFade; } }
-    private float mDeadButtonFade = 0.0f;
-    public float DeadButtonFade { get { return mDeadButtonFade; } }
+    private float mWinFade = 0.0f;
+    public float WinFade { get { return mWinFade; } }
+    private float mRestartButtonFade = 0.0f;
+    public float DeadButtonFade { get { return mRestartButtonFade; } }
+    public float RestartButtonFade { get { return mRestartButtonFade; } }
     
 
     private int mScore;
@@ -62,6 +66,7 @@ public class GameController : MonoBehaviour {
         mCurrLevel.StartLevel();
         State = GameState.Playing;
 
+        mWinFade = mDeadFade = 0.0f;
         mHighScore = PlayerPrefs.GetInt(PREFS_SCORE, 0);
 
         if(Application.isMobilePlatform)
@@ -143,8 +148,29 @@ public class GameController : MonoBehaviour {
         else
         {
             // Done
-            Debug.Log("Win");
+            WinGame();
         }
+    }
+
+    private void WinGame()
+    {
+        State = GameState.Win;
+        float tweenTime = 1.0f;
+        FadeOut();
+        iTween.ValueTo(gameObject, iTween.Hash("name", "mWinFade", "from", 0.0f, "to", 1.0f,
+            "onupdate", "SetWinFade", "time", 0.85f));
+        iTween.ValueTo(gameObject, iTween.Hash("name", "mRestartButtonFade", "from", 0.0f, "to", 1.0f,
+                "onupdate", "SetRestartButtonFade", "delay", tweenTime, "time", 0.75f));
+        mCurrLevel.SleepLevel();
+    }
+
+    private void SetWinFade(float val)
+    {
+        mWinFade = val;
+    }
+    private void SetRestartButtonFade(float val)
+    {
+        mRestartButtonFade = val;
     }
 
     /// <summary>
@@ -164,7 +190,7 @@ public class GameController : MonoBehaviour {
     {
         // Move them
         iTween.MoveTo(mCamera.gameObject, iTween.Hash("position", mCurrLevel.transform.position - 20.0f * mCurrLevel.transform.forward,
-            "time", 1.5f, "delay", 1.00f, "easetype", iTween.EaseType.easeInOutQuad,
+            "time", 1.5f, "delay", 0.5f, "easetype", iTween.EaseType.easeInOutQuad,
             "oncomplete", "LevelTransitionCallback", "oncompletetarget", gameObject));
         // Fade in and out
         FadeOut();
@@ -197,7 +223,7 @@ public class GameController : MonoBehaviour {
             float tweenTime = 2.0f;
             iTween.ValueTo(gameObject, iTween.Hash("name", "mDeadFade", "from", 0.0f, "to", 1.0f,
                 "onupdate", "SetDeathFade", "time", tweenTime));
-            iTween.ValueTo(gameObject, iTween.Hash("name", "mDeadButtonFade", "from", 0.0f, "to", 1.0f,
+            iTween.ValueTo(gameObject, iTween.Hash("name", "mRestartButtonFade", "from", 0.0f, "to", 1.0f,
                 "onupdate", "SetDeathButtonFade", "delay", tweenTime, "time", 0.75f));
         }
         State = GameState.Dead;
@@ -216,6 +242,6 @@ public class GameController : MonoBehaviour {
 
     private void SetDeathButtonFade(float val)
     {
-        mDeadButtonFade = val;
+        mRestartButtonFade = val;
     }
 }
