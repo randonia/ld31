@@ -10,9 +10,11 @@ public class LevelController : MonoBehaviour {
     public GameObject mDoor;
 
     public int LevelIndex;
+
 	// Use this for initialization
 	void Start () {
         SleepLevel();
+        iTween.Init(gameObject);
 	}
 	
 	// Update is called once per frame
@@ -30,6 +32,10 @@ public class LevelController : MonoBehaviour {
         {
             fac.GoToSleep();
         }
+        foreach (Collider c in GetComponentsInChildren<Collider>())
+        {
+            c.enabled = false;
+        }
         mDoor.GetComponent<UI2DSpriteAnimation>().Pause();
     }
 
@@ -45,6 +51,28 @@ public class LevelController : MonoBehaviour {
         {
             fac.WakeUp();
         }
+        foreach (Collider c in GetComponentsInChildren<Collider>())
+        {
+            c.enabled = true;
+        }
+
         GameController.instance.Door = mDoor;
+    }
+
+    internal void WrapUp()
+    {
+        // Do extra cleanup that's not done by Sleep
+        
+    }
+
+    void OnDrawGizmos()
+    {
+        Gizmos.color = Color.cyan;
+        Gizmos.DrawCube(transform.position, Vector3.one * 0.1f);
+        Gizmos.color = Color.magenta;
+        Gizmos.DrawWireCube(transform.position + transform.up * 1.438f, new Vector3(10.0f, 0.15f, 1.0f));
+        Gizmos.DrawWireCube(transform.position + transform.up * -1.562f, new Vector3(10.0f, 0.15f, 1.0f));
+        Gizmos.DrawWireCube(transform.position + transform.right * 2.625f, new Vector3(0.15f, 10.0f, 1.0f));
+        Gizmos.DrawWireCube(transform.position + transform.right * -2.688f, new Vector3(0.15f, 10.0f, 1.0f));
     }
 }

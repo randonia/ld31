@@ -17,8 +17,10 @@ public class GameController : MonoBehaviour {
 
     public List<GameObject> Levels;
     private LevelController mCurrLevel;
+    private int mCurrLevelInt;
     public GameObject GO_Emitter;
     public GameObject Door;
+    private Camera mCamera;
 
     public List<GameObject> GO_WoundedRemaining;
     private ParticleSystem mWoundedParticleSystem;
@@ -40,12 +42,13 @@ public class GameController : MonoBehaviour {
     void Start()
     {
         _instance = this;
+        mCamera = GameObject.Find("Main Camera").GetComponent<Camera>();
         mWoundedParticleSystem = GO_Emitter.GetComponent<ParticleSystem>();
 
         // Figure out how to do this via menus
-        mCurrLevel = Levels[0].GetComponent<LevelController>();
+        mCurrLevelInt = 0;
+        mCurrLevel = Levels[mCurrLevelInt].GetComponent<LevelController>();
         mCurrLevel.StartLevel();
-
 
         mControlMode = ControlMode.Desktop;
         //mControlMode = ControlMode.Mobile;
@@ -109,6 +112,38 @@ public class GameController : MonoBehaviour {
 
     internal void NextLevel()
     {
-        Debug.Log("NEXT LEVEL");
+        if (Levels.Count > mCurrLevelInt + 1){
+            mCurrLevel.WrapUp();
+            // Next level!
+            LevelController lastLevel = mCurrLevel;
+            mCurrLevelInt++;
+            mCurrLevel = Levels[mCurrLevelInt].GetComponent<LevelController>();
+            LevelTransition(lastLevel, mCurrLevel);
+        }
+        else
+        {
+            // Done
+            Debug.Log("Win");
+        }
+    }
+
+    /// <summary>
+    /// Delete this, or at least unhook its button
+    /// </summary>
+    public void Cheat()
+    {
+        NextLevel();
+    }
+
+    private void LevelTransition(LevelController lastLevel, LevelController mCurrLevel)
+    {
+        // Move them
+        iTween.MoveTo(mCamera.gameObject, iTween.Hash("position", mCurrLevel.transform.position,
+            "time", 1.5f, "delay", 0.75f, "easetype", iTween.EaseType.easeInOutQuad));
+        // Fade in and out
+        
+        // Start the level
+        mCurrLevel.StartLevel();
+        GO_WoundedRemaining = mCurrLevel.mFallenSoldiers;
     }
 }
