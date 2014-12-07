@@ -12,8 +12,8 @@ public class GameController : MonoBehaviour {
     // Use this for initialization
     void Start()
     {
-        //mControlMode = ControlMode.Desktop;
-        mControlMode = ControlMode.Mobile;
+        mControlMode = ControlMode.Desktop;
+        //mControlMode = ControlMode.Mobile;
     }
 
     // Update is called once per frame
