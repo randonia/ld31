@@ -95,4 +95,14 @@ public class GameController : MonoBehaviour {
         Time.timeScale = 1;
         State = GameState.Playing;
     }
+
+    internal bool LevelClearCheck()
+    {
+        return GO_WoundedRemaining.Count == 0;
+    }
+
+    internal void NextLevel()
+    {
+        Debug.Log("NEXT LEVEL");
+    }
 }

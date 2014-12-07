@@ -133,7 +133,14 @@ public class PlayerController : AbstractMovingGameObject {
         if (other.gameObject.tag == "target")
         {
             // Do target stuff
-            Debug.Log("Target!");
+        }
+        if (other.gameObject.tag == "goal")
+        {
+            if (GameController.instance.LevelClearCheck())
+            {
+                // Start the level end sequence
+                GameController.instance.NextLevel();
+            }
         }
     }
 
