@@ -136,6 +136,11 @@ public class EnemyController : AbstractMovingGameObject {
             Gizmos.color = Color.white;
             Gizmos.DrawWireSphere(transform.position, mPerceptionCollider.radius);
         }
+        if (StartPathingNode != null)
+        {
+            Gizmos.color = Color.white;
+            Gizmos.DrawLine(transform.position, StartPathingNode.transform.position);
+        }
     }
 
     internal void WakeUp()
@@ -155,4 +160,5 @@ public class EnemyController : AbstractMovingGameObject {
             collider.enabled = false;
         }
     }
+
 }

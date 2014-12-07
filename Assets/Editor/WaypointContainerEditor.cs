@@ -41,8 +41,9 @@ public class WaypointContainerEditor : Editor
         }
         if (GUILayout.Button("Add waypoint"))
         {
-            GameObject newWaypoint = (GameObject)GameObject.Instantiate(PREFAB_NODE, Vector3.zero, Quaternion.identity);
-            newWaypoint.transform.SetParent((target as PatrolWaypointContainer).transform);
+            GameObject newWaypoint = (GameObject)GameObject.Instantiate(PREFAB_NODE, 
+                (target as PatrolWaypointContainer).transform.position, Quaternion.identity);
+            //newWaypoint.transform.SetParent((target as PatrolWaypointContainer).transform);
             PathNode node = newWaypoint.GetComponent<PathNode>();
             newWaypoint.name = "PATH_NODE_" + waypoints.Count;
             if(waypoints.Count > 0){
