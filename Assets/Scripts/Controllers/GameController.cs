@@ -15,7 +15,8 @@ public class GameController : MonoBehaviour {
         Dead
     }
 
-    
+    public List<GameObject> Levels;
+    private LevelController mCurrLevel;
     public GameObject GO_Emitter;
     public GameObject Door;
 
@@ -40,6 +41,11 @@ public class GameController : MonoBehaviour {
     {
         _instance = this;
         mWoundedParticleSystem = GO_Emitter.GetComponent<ParticleSystem>();
+
+        // Figure out how to do this via menus
+        mCurrLevel = Levels[0].GetComponent<LevelController>();
+        mCurrLevel.StartLevel();
+
 
         mControlMode = ControlMode.Desktop;
         //mControlMode = ControlMode.Mobile;

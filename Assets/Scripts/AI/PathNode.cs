@@ -33,14 +33,8 @@ public class PathNode : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 
-        if (mNextNode && nextNodeGO == null)
-        {
-            nextNodeGO = mNextNode.gameObject;
-        }
-        if (mPrevNode && prevNodeGO == null)
-        {
-            prevNodeGO = mPrevNode.gameObject;
-        }
+        NextNode = nextNodeGO.GetComponent<PathNode>();
+        PrevNode = prevNodeGO.GetComponent<PathNode>();
         transform.position.Set(transform.position.x, transform.position.y, 0.0f);
 	}
 	
