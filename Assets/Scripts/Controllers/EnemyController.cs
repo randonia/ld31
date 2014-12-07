@@ -77,7 +77,7 @@ public class EnemyController : AbstractMovingGameObject {
 
     void OnTriggerStay(Collider other)
     {
-        if (other.gameObject.tag == "Player")
+        if (other.gameObject.tag == "Player" && GameController.instance.Playing)
         {
             if (CanSee(other.gameObject))
             {

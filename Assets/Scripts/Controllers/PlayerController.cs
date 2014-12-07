@@ -36,7 +36,12 @@ public class PlayerController : AbstractMovingGameObject {
     // Update is called once per frame
     void Update()
     {
-        DoMovement();
+        switch (GameController.State)
+        {
+            case GameController.GameState.Playing:
+                DoMovement();
+                break;
+        }
     }
 
     private void DoMovement()
@@ -129,6 +134,7 @@ public class PlayerController : AbstractMovingGameObject {
         if (other.gameObject.tag == "projectile")
         {
             // Do death stuff
+            GameController.instance.PlayerKilled();
         }
         if (other.gameObject.tag == "target")
         {

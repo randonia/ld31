@@ -26,7 +26,12 @@ public class GameController : MonoBehaviour {
     public List<GameObject> GO_WoundedRemaining;
     private ParticleSystem mWoundedParticleSystem;
 
+    public bool Playing { get { return State == GameState.Playing; } }
     public bool GamePaused { get { return State == GameState.Paused; } }
+    public bool PlayerDead { get { return State == GameState.Dead; } }
+    private float mDeadFade = 0.0f;
+    public float DeadFade { get { return mDeadFade; } }
+    
 
     private int mScore;
     public int Score { get { return mScore; } }
@@ -164,5 +169,20 @@ public class GameController : MonoBehaviour {
         // Start the level
         mCurrLevel.StartLevel();
         GO_WoundedRemaining = mCurrLevel.mFallenSoldiers;
+    }
+
+    internal void PlayerKilled()
+    {
+        if (State != GameState.Dead)
+        {
+            iTween.ValueTo(gameObject, iTween.Hash("name", "mDeadFade", "from", 0.0f, "to", 1.0f,
+                "onupdate", "SetDeathFade"));
+        }
+        State = GameState.Dead;
+    }
+
+    private void SetDeathFade(float val)
+    {
+        mDeadFade = val;
     }
 }
