@@ -33,9 +33,6 @@ public class PlayerController : AbstractMovingGameObject {
         {
             td.TriggerEnterDelegate = OnTriggerEnter;
         }
-
-        float ans = MathUtils.Map(5, 0, 10, 0, 100);
-        float ans2 = MathUtils.Map(5, 5, 10, 25, 100);
     }
 
     // Update is called once per frame
@@ -120,7 +117,7 @@ public class PlayerController : AbstractMovingGameObject {
             else
             {
                 // Slow down since no movement is there
-                mSpeed = Mathf.Max(mSpeed - ACCELERATION, 0);
+                mSpeed = 0.0f;
             }
 
             if (GO_TouchStart.activeSelf && GO_TouchEnd.activeSelf)
@@ -153,8 +150,5 @@ public class PlayerController : AbstractMovingGameObject {
     void OnDrawGizmos()
     {
         Gizmos.color = Color.white;
-        TextGizmo.Instance.DrawText(transform.position + Vector3.up * 1.2f, "Dif: " + (mTouchCurrPos - mTouchStartPos));
-        TextGizmo.Instance.DrawText(transform.position + Vector3.up * 1.1f, "Dir: " + (mTouchCurrPos - mTouchStartPos).normalized);
-        TextGizmo.Instance.DrawText(transform.position + Vector3.up * 1f, "Mag: " + mTouchMagnitude);
     }
 }
