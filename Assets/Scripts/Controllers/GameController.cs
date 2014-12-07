@@ -40,7 +40,6 @@ public class GameController : MonoBehaviour {
     {
         _instance = this;
         mWoundedParticleSystem = GO_Emitter.GetComponent<ParticleSystem>();
-        Door.GetComponent<UI2DSpriteAnimation>().Pause();
 
         mControlMode = ControlMode.Desktop;
         //mControlMode = ControlMode.Mobile;

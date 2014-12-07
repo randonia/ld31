@@ -12,24 +12,34 @@ public class PathNode : MonoBehaviour {
     public PathNode PrevNode
     {
         get { return mPrevNode; }
+        set
+        {
+            mPrevNode = value;
+            prevNodeGO = value.gameObject;
+        }
     }
 
     private PathNode mNextNode;
     public PathNode NextNode
     {
         get { return mNextNode; }
+        set
+        {
+            mNextNode = value;
+            nextNodeGO = value.gameObject;
+        }
     }
 
 	// Use this for initialization
 	void Start () {
 
-        if (nextNodeGO)
+        if (mNextNode && nextNodeGO == null)
         {
-            mNextNode = nextNodeGO.GetComponent<PathNode>();
+            nextNodeGO = mNextNode.gameObject;
         }
-        if (prevNodeGO)
+        if (mPrevNode && prevNodeGO == null)
         {
-            mPrevNode = prevNodeGO.GetComponent<PathNode>();
+            prevNodeGO = mPrevNode.gameObject;
         }
         transform.position.Set(transform.position.x, transform.position.y, 0.0f);
 	}

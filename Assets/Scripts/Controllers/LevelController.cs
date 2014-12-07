@@ -30,6 +30,7 @@ public class LevelController : MonoBehaviour {
         {
             fac.GoToSleep();
         }
+        mDoor.GetComponent<UI2DSpriteAnimation>().Pause();
     }
 
     public void StartLevel()
