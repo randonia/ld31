@@ -64,8 +64,14 @@ public class GameController : MonoBehaviour {
 
         mHighScore = PlayerPrefs.GetInt(PREFS_SCORE, 0);
 
-        mControlMode = ControlMode.Desktop;
-        //mControlMode = ControlMode.Mobile;
+        if(Application.isMobilePlatform)
+        {
+            mControlMode = ControlMode.Mobile;
+        }
+        else
+        {
+            mControlMode = ControlMode.Desktop;
+        }
     }
 
     // Update is called once per frame
