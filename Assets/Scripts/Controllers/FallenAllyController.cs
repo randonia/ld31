@@ -27,7 +27,8 @@ public class FallenAllyController : MonoBehaviour {
         {
             if (mHealStartTime + kHealTime < Time.time)
             {
-                // Do the poof or whatever. Add score
+                mParticleSystem.Emit(15);
+
             }
         }
 	}

@@ -75,7 +75,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100002}
   m_LocalRotation: {x: -.707106829, y: 0, z: 0, w: .707106829}
-  m_LocalPosition: {x: 0, y: 0, z: -1}
+  m_LocalPosition: {x: 0, y: -.00499999989, z: -1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 400000}
@@ -147,7 +147,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 73df6ab39abdc484dbf7d7a2ae75caca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GO_TIMER: {fileID: 0}
+  GO_TIMER: {fileID: 100004}
 --- !u!114 &11400004
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -221,7 +221,7 @@ ParticleSystem:
         m_PostInfinity: 2
       minMaxState: 0
     startSpeed:
-      scalar: .201742306
+      scalar: .409999996
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -420,8 +420,8 @@ ParticleSystem:
     serializedVersion: 2
     enabled: 1
     type: 4
-    radius: .0399999991
-    angle: 16.3299999
+    radius: .0886664391
+    angle: 22.6089821
     length: 5
     boxX: 1
     boxY: 1
@@ -433,7 +433,7 @@ ParticleSystem:
     enabled: 1
     m_Type: 0
     rate:
-      scalar: 2.29999995
+      scalar: 3
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -465,15 +465,15 @@ ParticleSystem:
         m_PreInfinity: 2
         m_PostInfinity: 2
       minMaxState: 0
-    cnt0: 30
-    cnt1: 30
-    cnt2: 30
-    cnt3: 30
+    cnt0: 3
+    cnt1: 4
+    cnt2: 5
+    cnt3: 15
     time0: 0
-    time1: 0
-    time2: 0
-    time3: 0
-    m_BurstCount: 0
+    time1: 1
+    time2: 2
+    time3: 3
+    m_BurstCount: 2
   SizeModule:
     enabled: 0
     curve:

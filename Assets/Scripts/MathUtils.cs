@@ -11,4 +11,9 @@ class MathUtils
         Vector3 direction = to - from;
         return from + direction * 0.5f;
     }
+
+    public static float Map(float value, float startFrom, float endFrom, float startTo, float endTo)
+    {
+        return ((value - startFrom) / (endFrom - startFrom)) * (endTo - startTo) + startTo;
+    }
 }

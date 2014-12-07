@@ -75,7 +75,7 @@ public class EnemyController : AbstractMovingGameObject {
     {
         Ray ray = new Ray(transform.position, (other.transform.position - transform.position).normalized);
         RaycastHit hitInfo;
-        if (Physics.SphereCast(ray, 0.1f, out hitInfo, distance: mPerceptionCollider.radius, layerMask: LayerMask.NameToLayer("Player")))
+        if (Physics.SphereCast(ray, 0.05f, out hitInfo, distance: mPerceptionCollider.radius, layerMask: LayerMask.NameToLayer("Player")))
         {
             if (hitInfo.collider.gameObject.tag.Equals("Player"))
             {
