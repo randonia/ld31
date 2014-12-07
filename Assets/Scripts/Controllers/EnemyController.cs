@@ -2,12 +2,21 @@
 using System.Collections;
 
 public class EnemyController : AbstractMovingGameObject {
+    private enum EnemyState
+    {
+        Sleep,
+        Patrol,
+        Searching,
+        Hunting
+    }
     public GameObject PREFAB_BULLET;
 
     public GameObject StartPathingNode;
     private GameObject mCurrNodeGO;
     private PathNode mCurrNode;
     private SphereCollider mPerceptionCollider;
+
+    private EnemyState mState = EnemyState.Sleep;
 
     private const float kFireRate = 0.5f;
     private float mLastFiredTime = 0.0f;
@@ -28,7 +37,16 @@ public class EnemyController : AbstractMovingGameObject {
 	// Update is called once per frame
 	void Update () {
         mSpeed = 0.5f;
-        DoMovement();
+        switch (mState)
+        {
+            case EnemyState.Sleep:
+                // Do nothing at all
+                return;
+            case EnemyState.Patrol:
+                DoMovement();
+                break;
+        }
+
 	}
 
     void DoMovement()
@@ -117,6 +135,24 @@ public class EnemyController : AbstractMovingGameObject {
         {
             Gizmos.color = Color.white;
             Gizmos.DrawWireSphere(transform.position, mPerceptionCollider.radius);
+        }
+    }
+
+    internal void WakeUp()
+    {
+        mState = EnemyState.Patrol;
+        foreach (Collider collider in GetComponentsInChildren<Collider>())
+        {
+            collider.enabled = true;
+        }
+    }
+
+    internal void GoToSleep()
+    {
+        mState = EnemyState.Sleep;
+        foreach (Collider collider in GetComponentsInChildren<Collider>())
+        {
+            collider.enabled = false;
         }
     }
 }

@@ -15,8 +15,9 @@ public class GameController : MonoBehaviour {
         Dead
     }
 
-    public GameObject GO_Door;
+    
     public GameObject GO_Emitter;
+    public GameObject Door;
 
     public List<GameObject> GO_WoundedRemaining;
     private ParticleSystem mWoundedParticleSystem;
@@ -39,7 +40,7 @@ public class GameController : MonoBehaviour {
     {
         _instance = this;
         mWoundedParticleSystem = GO_Emitter.GetComponent<ParticleSystem>();
-        GO_Door.GetComponent<UI2DSpriteAnimation>().Pause();
+        Door.GetComponent<UI2DSpriteAnimation>().Pause();
 
         mControlMode = ControlMode.Desktop;
         //mControlMode = ControlMode.Mobile;
@@ -71,7 +72,7 @@ public class GameController : MonoBehaviour {
             
             if (GO_WoundedRemaining.Count == 0)
             {
-                GO_Door.GetComponent<UI2DSpriteAnimation>().Play();
+                Door.GetComponent<UI2DSpriteAnimation>().Play();
             }
         }
     }
