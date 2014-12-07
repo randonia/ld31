@@ -62,7 +62,7 @@ public class LevelController : MonoBehaviour {
     internal void WrapUp()
     {
         // Do extra cleanup that's not done by Sleep
-        
+        SleepLevel();
     }
 
     void OnDrawGizmos()

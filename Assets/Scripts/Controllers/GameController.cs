@@ -20,6 +20,7 @@ public class GameController : MonoBehaviour {
     private int mCurrLevelInt;
     public GameObject GO_Emitter;
     public GameObject Door;
+    public GameObject GO_Fader;
     private Camera mCamera;
 
     public List<GameObject> GO_WoundedRemaining;
@@ -138,10 +139,28 @@ public class GameController : MonoBehaviour {
     private void LevelTransition(LevelController lastLevel, LevelController mCurrLevel)
     {
         // Move them
-        iTween.MoveTo(mCamera.gameObject, iTween.Hash("position", mCurrLevel.transform.position,
-            "time", 1.5f, "delay", 0.75f, "easetype", iTween.EaseType.easeInOutQuad));
+        iTween.MoveTo(mCamera.gameObject, iTween.Hash("position", mCurrLevel.transform.position - 20.0f * mCurrLevel.transform.forward,
+            "time", 1.5f, "delay", 1.00f, "easetype", iTween.EaseType.easeInOutQuad,
+            "oncomplete", "LevelTransitionCallback", "oncompletetarget", gameObject));
         // Fade in and out
-        
+        FadeOut();
+    }
+
+    private void FadeOut()
+    {
+        iTween.FadeTo(GO_Fader, iTween.Hash("alpha", 1, "time", 0.5f));
+        iTween.MoveTo(GO_Fader, iTween.Hash("z", 18, "time", 1.0f, "islocal", true));
+    }
+
+    private void FadeIn()
+    {
+        iTween.FadeTo(GO_Fader, iTween.Hash("alpha", 0, "time", 0.5f));
+        iTween.MoveTo(GO_Fader, iTween.Hash("z", 31, "time", 0.5f, "islocal", true));
+    }
+
+    public void LevelTransitionCallback()
+    {
+        FadeIn();
         // Start the level
         mCurrLevel.StartLevel();
         GO_WoundedRemaining = mCurrLevel.mFallenSoldiers;
